@@ -4,6 +4,8 @@ import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Deque;
 import java.util.ArrayDeque;
+PalindromeChecker checker = new PalindromeChecker();
+boolean result = checker.checkPalindrome(userInput);
 
 
 
