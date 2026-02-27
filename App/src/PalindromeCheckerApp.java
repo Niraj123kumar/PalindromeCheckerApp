@@ -2,6 +2,9 @@ import java.util.Scanner;
 import java.util.Stack;
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.Deque;
+import java.util.ArrayDeque;
+
 
 
 /**
@@ -13,6 +16,32 @@ import java.util.LinkedList;
  * @version 1.0.0
  * @since 2024
  */
+private static boolean checkPalindromeUsingDeque(String input) {
+
+    if (input == null || input.isEmpty()) {
+        return false;
+    }
+
+    // Clean input
+    String cleaned = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+    Deque<Character> deque = new ArrayDeque<>();
+
+    // Insert characters into deque
+    for (char ch : cleaned.toCharArray()) {
+        deque.addLast(ch);
+    }
+
+    // Compare front and rear
+    while (deque.size() > 1) {
+        if (!deque.removeFirst().equals(deque.removeLast())) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 private static boolean checkPalindromeUsingQueueAndStack(String input) {
 
     if (input == null || input.isEmpty()) {
@@ -150,7 +179,9 @@ public class PalindromeCheckerApp {
                     break;
 
                 case "4":
+                    result = checkPalindromeUsingDeque(userInput);
                     break;
+
 
                 default:
                     System.out.println("Invalid choice.");
