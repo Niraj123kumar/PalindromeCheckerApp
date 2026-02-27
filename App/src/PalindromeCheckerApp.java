@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * Palindrome Checker App
  * A console-based Java application that validates whether a given string
