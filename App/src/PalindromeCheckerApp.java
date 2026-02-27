@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
  * Palindrome Checker App
@@ -86,18 +87,40 @@ public class PalindromeCheckerApp {
         System.out.println("=== INTERACTIVE MODE ===");
 
         while (true) {
-            System.out.print("Enter a string to check (or type 'exit' to quit): ");
-            userInput = scanner.nextLine();
 
-            if (userInput.equalsIgnoreCase("exit")) {
+            System.out.println("\nSelect Palindrome Checking Method:");
+            System.out.println("1. Recursive Method (UC4)");
+            System.out.println("2. Stack-Based Method (UC5)");
+            System.out.println("3. Exit");
+            System.out.print("Enter choice: ");
+
+            String choice = scanner.nextLine();
+
+            if (choice.equals("3")) {
                 break;
             }
 
-            boolean result = checkPalindrome(userInput);
+            System.out.print("Enter a string to check: ");
+            userInput = scanner.nextLine();
+
+            boolean result = false;
+
+            switch (choice) {
+                case "1":
+                    result = checkPalindrome(userInput);
+                    break;
+
+                case "2":
+                    result = checkPalindromeUsingStack(userInput);
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Try again.");
+                    continue;
+            }
 
             System.out.println("Result: " +
                     (result ? "✓ PALINDROME" : "✗ NOT PALINDROME"));
-            System.out.println();
 
             // Update statistics
             totalChecks++;
@@ -107,6 +130,11 @@ public class PalindromeCheckerApp {
         }
 
         scanner.close();
+        displayApplicationStatistics();
+        displayExitMessage();
+        }
+
+
 
         // Display statistics before exiting
         displayApplicationStatistics();
@@ -172,6 +200,32 @@ public class PalindromeCheckerApp {
      * Displays application statistics before exit
      * Shows usage metrics and performance data
      */
+    private static boolean checkPalindromeUsingStack(String input) {
+
+        if (input == null || input.isEmpty()) {
+            return false;
+        }
+
+        // Clean input
+        String cleaned = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+        Stack<Character> stack = new Stack<>();
+
+        // Push all characters into stack
+        for (char ch : cleaned.toCharArray()) {
+            stack.push(ch);
+        }
+
+        // Pop and compare
+        for (char ch : cleaned.toCharArray()) {
+            if (ch != stack.pop()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private static void displayApplicationStatistics() {
         System.out.println("=== APPLICATION STATISTICS ===");
         System.out.println("Total Checks Performed: " + totalChecks);
