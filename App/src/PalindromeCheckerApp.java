@@ -67,6 +67,17 @@ public class PalindromeCheckerApp {
      * Main application logic controller
      * Manages the flow after welcome message display
      */
+    private static boolean checkPalindromeRecursive(String str, int start, int end) {
+        if (start >= end) {
+            return true;
+        }
+        if (str.charAt(start) != str.charAt(end)) {
+            return false;
+        }
+        return checkPalindromeRecursive(str, start + 1, end - 1);
+    }
+
+
     private static void startApplication() {
 
         Scanner scanner = new Scanner(System.in);
@@ -150,17 +161,12 @@ public class PalindromeCheckerApp {
             return false;
         }
 
-        // Clean the input: remove spaces and convert to lowercase
-        String cleaned = input.replaceAll("\\s+", "").toLowerCase();
+        // Clean the input
+        String cleaned = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-        // Remove non-alphanumeric characters for sentence palindromes
-        cleaned = cleaned.replaceAll("[^a-zA-Z0-9]", "");
-
-        // Check if cleaned string equals its reverse
-        String reversed = new StringBuilder(cleaned).reverse().toString();
-
-        return cleaned.equals(reversed);
+        return checkPalindromeRecursive(cleaned, 0, cleaned.length() - 1);
     }
+
 
     /**
      * Displays application statistics before exit
