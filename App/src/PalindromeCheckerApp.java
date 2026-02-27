@@ -66,17 +66,37 @@ public class PalindromeCheckerApp {
      * Manages the flow after welcome message display
      */
     private static void startApplication() {
-        System.out.println("Initializing Palindrome Checker...");
-        System.out.println("Application ready for use!");
-        System.out.println();
 
-        // Demonstrate basic functionality
-        demonstrateBasicUsage();
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
 
-        // Display application statistics before exit
+        System.out.println("=== INTERACTIVE MODE ===");
+
+        while (true) {
+            System.out.print("Enter a string to check (or type 'exit' to quit): ");
+            userInput = scanner.nextLine();
+
+            if (userInput.equalsIgnoreCase("exit")) {
+                break;
+            }
+
+            boolean result = checkPalindrome(userInput);
+
+            System.out.println("Result: " +
+                    (result ? "✓ PALINDROME" : "✗ NOT PALINDROME"));
+            System.out.println();
+
+            // Update statistics
+            totalChecks++;
+            if (result) {
+                palindromesFound++;
+            }
+        }
+
+        scanner.close();
+
+        // Display statistics before exiting
         displayApplicationStatistics();
-
-        // Application exit message
         displayExitMessage();
     }
 
