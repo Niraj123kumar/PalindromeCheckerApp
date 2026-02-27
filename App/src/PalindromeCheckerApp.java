@@ -16,6 +16,32 @@ import java.util.ArrayDeque;
  * @version 1.0.0
  * @since 2024
  */
+private static boolean checkPalindromeCaseInsensitive(String input) {
+
+    if (input == null || input.isEmpty()) {
+        return false;
+    }
+
+    // Normalize string
+    String normalized = input
+            .replaceAll("\\s+", "")       // remove spaces
+            .toLowerCase();               // convert to lowercase
+
+    // Two-pointer comparison
+    int left = 0;
+    int right = normalized.length() - 1;
+
+    while (left < right) {
+        if (normalized.charAt(left) != normalized.charAt(right)) {
+            return false;
+        }
+        left++;
+        right--;
+    }
+
+    return true;
+}
+
 private static boolean checkPalindromeRecursiveUC9(String input) {
 
     if (input == null || input.isEmpty()) {
@@ -282,6 +308,10 @@ public class PalindromeCheckerApp {
                 case "6":
                     result = checkPalindromeRecursiveUC9(userInput);
                     break;
+                case "7":
+                    result = checkPalindromeCaseInsensitive(userInput);
+                    break;
+
 
 
 
