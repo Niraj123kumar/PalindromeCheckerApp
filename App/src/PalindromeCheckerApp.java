@@ -16,6 +16,74 @@ import java.util.ArrayDeque;
  * @version 1.0.0
  * @since 2024
  */
+// Node class for Singly Linked List
+static class ListNode {
+    char data;
+    ListNode next;
+
+    ListNode(char data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+private static boolean checkPalindromeUsingLinkedList(String input) {
+
+    if (input == null || input.isEmpty()) {
+        return false;
+    }
+
+    // Clean input
+    String cleaned = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+    // Step 1: Convert string to linked list
+    ListNode head = null, tail = null;
+
+    for (char ch : cleaned.toCharArray()) {
+        ListNode newNode = new ListNode(ch);
+        if (head == null) {
+            head = tail = newNode;
+        } else {
+            tail.next = newNode;
+            tail = newNode;
+        }
+    }
+
+    // Step 2: Find middle using slow & fast pointer
+    ListNode slow = head;
+    ListNode fast = head;
+
+    while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+
+    // Step 3: Reverse second half
+    ListNode prev = null;
+    ListNode current = slow;
+
+    while (current != null) {
+        ListNode nextTemp = current.next;
+        current.next = prev;
+        prev = current;
+        current = nextTemp;
+    }
+
+    // Step 4: Compare halves
+    ListNode firstHalf = head;
+    ListNode secondHalf = prev;
+
+    while (secondHalf != null) {
+        if (firstHalf.data != secondHalf.data) {
+            return false;
+        }
+        firstHalf = firstHalf.next;
+        secondHalf = secondHalf.next;
+    }
+
+    return true;
+}
+
+
 private static boolean checkPalindromeUsingDeque(String input) {
 
     if (input == null || input.isEmpty()) {
@@ -181,6 +249,10 @@ public class PalindromeCheckerApp {
                 case "4":
                     result = checkPalindromeUsingDeque(userInput);
                     break;
+                case "5":
+                    result = checkPalindromeUsingLinkedList(userInput);
+                    break;
+
 
 
                 default:
