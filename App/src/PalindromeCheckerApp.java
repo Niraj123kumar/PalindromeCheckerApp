@@ -1,5 +1,8 @@
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.Queue;
+import java.util.LinkedList;
+
 
 /**
  * Palindrome Checker App
@@ -10,6 +13,34 @@ import java.util.Stack;
  * @version 1.0.0
  * @since 2024
  */
+private static boolean checkPalindromeUsingQueueAndStack(String input) {
+
+    if (input == null || input.isEmpty()) {
+        return false;
+    }
+
+    // Clean input
+    String cleaned = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+    Queue<Character> queue = new LinkedList<>();
+    Stack<Character> stack = new Stack<>();
+
+    // Insert characters into both structures
+    for (char ch : cleaned.toCharArray()) {
+        queue.offer(ch);   // Enqueue (FIFO)
+        stack.push(ch);    // Push (LIFO)
+    }
+
+    // Compare dequeue and pop
+    while (!queue.isEmpty()) {
+        if (!queue.poll().equals(stack.pop())) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 public class PalindromeCheckerApp {
 
     // Application constants
@@ -114,10 +145,19 @@ public class PalindromeCheckerApp {
                     result = checkPalindromeUsingStack(userInput);
                     break;
 
+                case "3":
+                    result = checkPalindromeUsingQueueAndStack(userInput);
+                    break;
+
+                case "4":
+                    break;
+
                 default:
-                    System.out.println("Invalid choice. Try again.");
+                    System.out.println("Invalid choice.");
                     continue;
             }
+
+        }
 
             System.out.println("Result: " +
                     (result ? "✓ PALINDROME" : "✗ NOT PALINDROME"));
@@ -129,16 +169,7 @@ public class PalindromeCheckerApp {
             }
         }
 
-        scanner.close();
-        displayApplicationStatistics();
-        displayExitMessage();
-        }
 
-
-
-        // Display statistics before exiting
-        displayApplicationStatistics();
-        displayExitMessage();
     }
 
     /**
