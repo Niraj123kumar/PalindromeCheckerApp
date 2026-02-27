@@ -4,6 +4,11 @@ import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Deque;
 import java.util.ArrayDeque;
+System.out.println("Enter a string:");
+String input = scanner.nextLine();
+
+PerformanceComparison.compare(input);
+
 PalindromeChecker checker = new PalindromeChecker();
 boolean result = checker.checkPalindrome(userInput);
 
