@@ -16,6 +16,33 @@ import java.util.ArrayDeque;
  * @version 1.0.0
  * @since 2024
  */
+private static boolean checkPalindromeRecursiveUC9(String input) {
+
+    if (input == null || input.isEmpty()) {
+        return false;
+    }
+
+    String cleaned = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+    return recursiveHelper(cleaned, 0, cleaned.length() - 1);
+}
+private static boolean recursiveHelper(String str, int start, int end) {
+
+    // Base condition
+    if (start >= end) {
+        return true;
+    }
+
+    // If mismatch
+    if (str.charAt(start) != str.charAt(end)) {
+        return false;
+    }
+
+    // Recursive call
+    return recursiveHelper(str, start + 1, end - 1);
+}
+
+
 // Node class for Singly Linked List
 static class ListNode {
     char data;
@@ -252,6 +279,10 @@ public class PalindromeCheckerApp {
                 case "5":
                     result = checkPalindromeUsingLinkedList(userInput);
                     break;
+                case "6":
+                    result = checkPalindromeRecursiveUC9(userInput);
+                    break;
+
 
 
 
